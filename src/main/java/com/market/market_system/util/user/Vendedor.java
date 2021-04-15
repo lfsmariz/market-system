@@ -21,6 +21,13 @@ public class Vendedor extends User {
     this.cnpj = cnpj;
     this.catalogo = new HashSet<>();
   }
+  public Vendedor() {
+    super("tmpVendedor", 0.0);
+    this.valorAReceber = 0.0;
+    this.vendasReal = 0;
+    this.cnpj = "0000000";
+    this.catalogo = new HashSet<>();
+  }
 
   public void addVendaRealizada() {
     this.vendasReal += 1;

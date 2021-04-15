@@ -16,6 +16,13 @@ public class Comprador extends User{
     this.comprasRealizadas = 0;
   }
 
+  public Comprador() {
+    super("tmpComprador", 1000);
+    this.valorAPagar = 0.0;
+    this.cpf = "0000000";
+    this.comprasRealizadas = 0;
+  }
+
   public String getCpf() {
     return cpf;
   }

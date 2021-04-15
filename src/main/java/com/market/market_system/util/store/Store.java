@@ -3,6 +3,10 @@ package com.market.market_system.util.store;
 import java.time.LocalDate;
 import java.util.*;
 
+import com.market.market_system.util.store.utils.Boletopay;
+import com.market.market_system.util.store.utils.Creditopay;
+import com.market.market_system.util.store.utils.Debitopay;
+import com.market.market_system.util.store.utils.Pixpay;
 import com.market.market_system.util.user.Comprador;
 import com.market.market_system.util.user.Vendedor;
 import org.springframework.stereotype.Component;
@@ -42,140 +46,22 @@ public class Store {
   }
 
   public void pix(String cpfComprador, String cnpjVendedor, List<String> codigos) {
-    Comprador compradorAtual = new Comprador("samplep", 0, "samplep");
-    Vendedor vendedorAtual = new Vendedor("samplevp", "samplevp");
-    double valorCompra = 0;
-    for (Comprador comprador : listaComprador) {
-      if (comprador.getCpf().equals(cpfComprador)) {
-        compradorAtual = comprador;
-      }
-    }
-
-    for (Vendedor vendedor : listaVendedor) {
-      if (vendedor.getCnpj().equals(cnpjVendedor)) {
-        vendedorAtual = vendedor;
-      }
-    }
-
-    for (String codAt : codigos) {
-      for (Produto prod : vendedorAtual.getCatalogo()) {
-        if (codAt.equals(prod.getCodigo())) {
-          valorCompra += prod.getPreco();
-        }
-      }
-    }
-
-    if (compradorAtual.getSaldo() > valorCompra) {
-      double novoSaldoComprador = compradorAtual.getSaldo() - valorCompra;
-      double novoSaldoVendedor = vendedorAtual.getSaldo() + valorCompra;
-      compradorAtual.setSaldo(novoSaldoComprador);
-      vendedorAtual.setSaldo(novoSaldoVendedor);
-      compradorAtual.addCompraRealizada();
-      vendedorAtual.addVendaRealizada();
-    }
+    Pixpay payment = new Pixpay();
+    payment.pagar(this.listaComprador, this.listaVendedor, cpfComprador, cnpjVendedor, codigos, LocalDate.now());
   }
 
   public void debito(String cpfComprador, String cnpjVendedor, List<String> codigos) {
-    Comprador compradorAtual = new Comprador("sampled", 0, "sampled");
-    Vendedor vendedorAtual = new Vendedor("sampleva", "sampleva");
-    double valorCompra = 0;
-    for (Comprador comprador : listaComprador) {
-      if (comprador.getCpf().equals(cpfComprador)) {
-        compradorAtual = comprador;
-      }
-    }
-
-    for (Vendedor vendedor : listaVendedor) {
-      if (vendedor.getCnpj().equals(cnpjVendedor)) {
-        vendedorAtual = vendedor;
-      }
-    }
-
-    for (String codAt : codigos) {
-      for (Produto prod : vendedorAtual.getCatalogo()) {
-        if (codAt.equals(prod.getCodigo())) {
-          valorCompra += prod.getPreco();
-        }
-      }
-    }
-
-    if (compradorAtual.getSaldo() > valorCompra) {
-      double novoSaldoComprador = compradorAtual.getSaldo() - valorCompra;
-      double novoSaldoVendedor = vendedorAtual.getSaldo() + valorCompra * (1 - taxaCartao);
-      compradorAtual.setSaldo(novoSaldoComprador);
-      vendedorAtual.setSaldo(novoSaldoVendedor);
-      compradorAtual.addCompraRealizada();
-      vendedorAtual.addVendaRealizada();
-    }
+    Debitopay payment = new Debitopay();
+    payment.pagar(this.listaComprador, this.listaVendedor, cpfComprador, cnpjVendedor, codigos, LocalDate.now());
   }
 
   public void credito(String cpfComprador, String cnpjVendedor, List<String> codigos) {
-    Comprador compradorAtual = new Comprador("samplec", 0, "samplec");
-    Vendedor vendedorAtual = new Vendedor("samplev", "samplev");
-    double valorCompra = 0;
-    for (Comprador comprador : listaComprador) {
-      if (comprador.getCpf().equals(cpfComprador)) {
-        compradorAtual = comprador;
-      }
-    }
-
-    for (Vendedor vendedor : listaVendedor) {
-      if (vendedor.getCnpj().equals(cnpjVendedor)) {
-        vendedorAtual = vendedor;
-      }
-    }
-
-    for (String codAt : codigos) {
-      for (Produto prod : vendedorAtual.getCatalogo()) {
-        if (codAt.equals(prod.getCodigo())) {
-          valorCompra += prod.getPreco();
-        }
-      }
-    }
-
-    if (compradorAtual.getSaldo() > valorCompra) {
-      double valorAPagar = valorCompra;
-      double valorAReceber = valorCompra * (1 - taxaCartao);
-      compradorAtual.addValorAPagar(valorAPagar);;
-      vendedorAtual.addValorAReceber(valorAReceber);
-      compradorAtual.addCompraRealizada();
-      vendedorAtual.addVendaRealizada();
-    }
+    Creditopay payment = new Creditopay();
+    payment.pagar(this.listaComprador, this.listaVendedor, cpfComprador, cnpjVendedor, codigos, LocalDate.now());
   }
-
   public void boleto(String cpfComprador, String cnpjVendedor, List<String> codigos, LocalDate date) {
-    Comprador compradorAtual = new Comprador("sample", 0, "sample");
-    Vendedor vendedorAtual = new Vendedor("sampleve", "sampleve");
-    double valorCompra = 0;
-    for (Comprador comprador : listaComprador) {
-      if (comprador.getCpf().equals(cpfComprador)) {
-        compradorAtual = comprador;
-      }
-    }
-
-    for (Vendedor vendedor : listaVendedor) {
-      if (vendedor.getCnpj().equals(cnpjVendedor)) {
-        vendedorAtual = vendedor;
-      }
-    }
-
-    for (String codAt : codigos) {
-      for (Produto prod : vendedorAtual.getCatalogo()) {
-        if (codAt.equals(prod.getCodigo())) {
-          valorCompra += prod.getPreco();
-        }
-      }
-    }
-
-    if (compradorAtual.getSaldo() > valorCompra && (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now()))) {
-      double novoSaldoComprador = compradorAtual.getSaldo() - valorCompra;
-      double novoSaldoVendedor = vendedorAtual.getSaldo() + valorCompra - taxaBoleto;
-      compradorAtual.setSaldo(novoSaldoComprador);
-      vendedorAtual.setSaldo(novoSaldoVendedor);
-      compradorAtual.addCompraRealizada();
-      vendedorAtual.addVendaRealizada();
-    }
-
+    Boletopay payment = new Boletopay();
+    payment.pagar(this.listaComprador, this.listaVendedor, cpfComprador, cnpjVendedor, codigos, date);
   }
 
   public Map showVendedor(String cnpj) {
