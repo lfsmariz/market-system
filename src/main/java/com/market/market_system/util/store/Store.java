@@ -10,7 +10,7 @@ import com.market.market_system.util.store.utils.Pixpay;
 import com.market.market_system.util.user.Comprador;
 import com.market.market_system.util.user.Vendedor;
 import org.springframework.stereotype.Component;
-import store.utils.Produto;
+import com.market.market_system.util.store.utils.Produto;
 
 @Component
 public class Store {
@@ -75,10 +75,30 @@ public class Store {
     return tmpMessage;
   }
 
-  public void showProdutos() {
-    for (Produto produto : listaProdutos) {
-      System.out.println(produto);
+  public Map<String, List<Map<String, String>>> showVendedorProd(String cnpj) {
+    List tmpProds = new ArrayList<Map<String, String>>();
+    Map tmpReturn = new HashMap();
+    for (Vendedor vendedor : listaVendedor) {
+      if (vendedor.getCnpj().equals(cnpj)) {
+        for (Produto produto : vendedor.getCatalogo()) {
+          tmpProds.add(produto.toJson());
+        }
+      }
     }
+
+    tmpReturn.put("produtos", tmpProds);
+
+    return tmpReturn;
+  }
+
+  public Map<String, List<Map<String, String>>> showProdutos() {
+    List tmpProds = new ArrayList<Map<String, String>>();
+    Map tmpReturn = new HashMap();
+    for (Produto produto : listaProdutos) {
+      tmpProds.add(produto.toJson());
+    }
+    tmpReturn.put("produtos", tmpProds);
+    return tmpReturn;
   }
 
   public Map<String, String> showComprador(String cpf) {

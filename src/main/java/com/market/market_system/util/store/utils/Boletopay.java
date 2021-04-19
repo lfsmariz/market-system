@@ -2,7 +2,7 @@ package com.market.market_system.util.store.utils;
 
 import com.market.market_system.util.user.Comprador;
 import com.market.market_system.util.user.Vendedor;
-
+import com.market.market_system.util.store.utils.Produto;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +28,7 @@ public class Boletopay extends FormaPagamento{
         }
 
         for (String codAt : codigos) {
-            for (store.utils.Produto prod : vendedorAtual.getCatalogo()) {
+            for (Produto prod : vendedorAtual.getCatalogo()) {
                 if (codAt.equals(prod.getCodigo())) {
                     valorCompra += prod.getPreco();
                 }

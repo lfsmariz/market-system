@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import store.utils.Produto;
+import com.market.market_system.util.store.utils.Produto;
 
 public class Vendedor extends User {
   

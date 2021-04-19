@@ -1,4 +1,7 @@
-package store.utils;
+package com.market.market_system.util.store.utils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Produto {
   private String codigo;
@@ -23,6 +26,15 @@ public class Produto {
   public String toString() {
     String divide = "------- \n";
     return divide + codigo + "\n" + nome + "\n" + preco + "\n" + divide;
+  }
+
+  public Map<String, String> toJson() {
+    Map tmpMap = new HashMap();
+    tmpMap.put("codigo", this.codigo);
+    tmpMap.put("nome", this.nome);
+    tmpMap.put("preco", String.valueOf(this.preco));
+
+    return tmpMap;
   }
 
   @Override
