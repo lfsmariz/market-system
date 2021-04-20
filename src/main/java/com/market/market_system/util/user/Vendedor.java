@@ -60,7 +60,7 @@ public class Vendedor extends User {
     Map tmpMap = new HashMap();
     tmpMap.put("nome", super.nome);
     tmpMap.put("saldo", super.saldo);
-    tmpMap.put("cpf", this.cnpj);
+    tmpMap.put("cnpj", this.cnpj);
     tmpMap.put("toReceive", this.valorAReceber);
     tmpMap.put("purchases", this.vendasReal);
 
