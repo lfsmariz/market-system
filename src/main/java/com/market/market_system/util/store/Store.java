@@ -112,15 +112,23 @@ public class Store {
     return tmpMessage;
   }
 
-  public void showCompradores() {
+  public Map showCompradores() {
+    Map tmpCompradores = new HashMap();
+    List tmpCompradoresList = new ArrayList<Map<String, String>>();
     for (Comprador comprador : listaComprador) {
-      System.out.println(comprador);
+      tmpCompradoresList.add(comprador.toJson());
     }
+    tmpCompradores.put("compradores", tmpCompradoresList);
+    return tmpCompradores;
   }
 
-  public void showVendedores() {
+  public Map showVendedores() {
+    Map tmpVendedores = new HashMap();
+    List tmpVendedoresList = new ArrayList<Map<String, String>>();
     for (Vendedor vendedor : listaVendedor) {
-      System.out.println(vendedor);
+      tmpVendedoresList.add(vendedor.toJson());
     }
+    tmpVendedores.put("vendedores", tmpVendedoresList);
+    return tmpVendedores;
   }
 }
