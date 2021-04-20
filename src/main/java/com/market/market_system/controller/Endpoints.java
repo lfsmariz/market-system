@@ -27,9 +27,9 @@ public class Endpoints {
         Comprador tmpComp2 = new Comprador("Comprador2", 200, "22222");
         Comprador tmpComp3= new Comprador("Comprador3", 300, "33333");
 
-        Vendedor tmpVend1 = new Vendedor("Vendedor", "4444");
-        Vendedor tmpVend2 = new Vendedor("Vendedor", "5555");
-        Vendedor tmpVend3 = new Vendedor("Vendedor", "6666");
+        Vendedor tmpVend1 = new Vendedor("Vendedor4", "4444");
+        Vendedor tmpVend2 = new Vendedor("Vendedor5", "5555");
+        Vendedor tmpVend3 = new Vendedor("Vendedor6", "6666");
 
         Produto tmpProd1 = new Produto("produto1", "PRODUTO1", 10.0);
         Produto tmpProd2 = new Produto("produto2", "PRODUTO2", 20.0);
