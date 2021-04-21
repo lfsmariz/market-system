@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class Cors implements Filter {
 
-    private String originPermitida = "http://localhost:3000";
+    private String originPermitida = "https://mustang-roy.github.io";
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
