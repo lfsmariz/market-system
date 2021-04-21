@@ -88,14 +88,14 @@ public class Endpoints {
         return tmpVendedor;
     }
 
-    @GetMapping("/pix")
+    @PostMapping("/pix")
     public Map pagarPix(@RequestBody Bodypayment body){
         Map<String, String> tmpMap = new HashMap<>();
         this.store.pix(body.getCpfComprador(), body.getCnpjVendedor(), body.getCodigosProdutos());
         return tmpMap;
     }
 
-    @GetMapping("/boleto")
+    @PostMapping("/boleto")
     public Map pagarBoleto(@RequestBody Bodypayment body){
         Map<String, String> tmpMap = new HashMap<>();
         tmpMap.put("message", body.getCpfComprador());
@@ -111,7 +111,7 @@ public class Endpoints {
         return tmpMap;
     }
 
-    @GetMapping("/debito")
+    @PostMapping("/debito")
     public Map pagarDebito(@RequestBody Bodypayment body){
         Map<String, String> tmpMap = new HashMap<>();
         tmpMap.put("message", body.getCpfComprador());
@@ -120,7 +120,7 @@ public class Endpoints {
         return tmpMap;
     }
 
-    @GetMapping("/credito")
+    @PostMapping("/credito")
     public Map pagarCredito(@RequestBody Bodypayment body){
         Map<String, String> tmpMap = new HashMap<>();
         tmpMap.put("message", body.getCpfComprador());
